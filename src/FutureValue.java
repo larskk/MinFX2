@@ -77,7 +77,7 @@ public class FutureValue extends Application {
   }
 
   private void calculateButtonClicked() {
-
+    Validation v = new Validation();
     double investment;
     double rate = Double.parseDouble(interestRateField.getText());
     int years = Integer.parseInt(yearsField.getText());
