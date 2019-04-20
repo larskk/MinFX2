@@ -34,7 +34,6 @@ public class FutureValue extends Application {
     grid.setVgap(5);
     Scene scene = new Scene(grid, 500, 300);
 
-
     //labels & text fields
     grid.add(new Label("Monthly Investment:"), 0, 0);
     investmentField = new TextField();
@@ -78,34 +77,23 @@ public class FutureValue extends Application {
 
   private void calculateButtonClicked() {
     Validation v = new Validation();
-    double investment;
-    double rate = Double.parseDouble(interestRateField.getText());
-    int years = Integer.parseInt(yearsField.getText());
+    String errorMessage = "";
+    errorMessage += v.isDouble(investmentField.getText(), "Monthly investment");
+    errorMessage += v.isDouble(interestRateField.getText(), "Yearly interest rate");
+    errorMessage += v.isInteger(yearsField.getText(), "Years");
 
-    //get data from text fields
-    if (investmentField.getText().isEmpty()) {
+    if (errorMessage.isEmpty()) {
+      double investment = Double.parseDouble(investmentField.getText());
+      double rate = Double.parseDouble(interestRateField.getText());
+      int years = Integer.parseInt(yearsField.getText());
+      double futureValue = FinancialCalculations.calculateFutureValue(investment, rate, years);
+      NumberFormat currency = NumberFormat.getCurrencyInstance();
+      futureValueField.setText(currency.format(futureValue));
+    } else {
       Alert alert = new Alert(Alert.AlertType.ERROR);
       alert.setHeaderText("Invalid Entry!");
-      alert.setContentText("Monthly investment is a required field.");
+      alert.setContentText(errorMessage);
       alert.showAndWait();
-      return;
     }
-    try {
-      investment = Double.parseDouble(investmentField.getText());
-
-    } catch (NumberFormatException e) {
-      Alert alert = new Alert(Alert.AlertType.ERROR);
-      alert.setHeaderText("Invalid Entry!");
-      alert.setContentText("Monthly investment must be a valid number.");
-      alert.showAndWait();
-      return;
-    }
-
-//  calculate future value
-    double futureValue = FinancialCalculations.calculateFutureValue(investment, rate, years);
-
-//  set data in read only text field
-    NumberFormat currency = NumberFormat.getCurrencyInstance();
-    futureValueField.setText(currency.format(futureValue));
   }
 }

@@ -25,7 +25,7 @@ public class Validation {
     try {
       Integer.parseInt(value);
     } catch (NumberFormatException e) {
-      message = name + "must be an integer" + lineEnd;
+      message = name + " must be an integer" + lineEnd;
     }
     return message;
   }
