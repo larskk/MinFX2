@@ -14,17 +14,17 @@ import java.text.NumberFormat;
 
 public class FutureValue extends Application {
 
-  private TextField investmentField = new TextField();
-  private Label investmentLabel = new Label("Monthly Investment");
+  private final TextField investmentField = new TextField();
+  private final Label investmentLabel = new Label("Monthly Investment");
 
-  private TextField interestRateField = new TextField();
-  private Label interestLabel = new Label("Yearly Interest Rate");
+  private final TextField interestRateField = new TextField();
+  private final Label interestLabel = new Label("Yearly Interest Rate");
 
-  private TextField yearsField = new TextField();
-  private Label yearsLabel = new Label("Years");
+  private final TextField yearsField = new TextField();
+  private final Label yearsLabel = new Label("Years");
 
   private TextField futureValueField = new TextField();
-  private Label futureValueLabel = new Label("Future Value");
+  private final Label futureValueLabel = new Label("Future Value");
 
   public static void main(String[] args) {
     launch(args);
@@ -32,6 +32,7 @@ public class FutureValue extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {
+    futureValueField.setEditable(false);
     primaryStage.setTitle("Future Value Calculator");
 
     GridPane grid = new GridPane();
@@ -41,21 +42,9 @@ public class FutureValue extends Application {
     grid.setVgap(5);
     Scene scene = new Scene(grid, 500, 300);
 
-
     //labels & text fields
-    grid.add(investmentLabel, 0, 0);
-    grid.add(investmentField, 1, 0);
-
-    grid.add(interestLabel, 0, 1);
-    grid.add(interestRateField, 1, 1);
-
-    grid.add(yearsLabel, 0, 2);
-    grid.add(yearsField, 1, 2);
-
-    grid.add(futureValueLabel, 0, 3);
-    futureValueField.setEditable(false);
-    grid.add(futureValueField, 1, 3);
-
+    grid.addColumn(0, investmentLabel, interestLabel, yearsLabel, futureValueLabel);
+    grid.addColumn(1, investmentField, interestRateField, yearsField, futureValueField);
 
     //buttons
     Button calcButton = new Button("Calculate");
