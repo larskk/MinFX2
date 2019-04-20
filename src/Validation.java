@@ -15,7 +15,7 @@ public class Validation {
   public String isPresent(String value, String name) {
     String message = "";
     if (value.isEmpty()) {
-      message = name + "is required." + lineEnd;
+      message = name + " is required." + lineEnd;
     }
     return message;
   }
@@ -35,7 +35,7 @@ public class Validation {
     try {
       Double.parseDouble(value);
     } catch (NumberFormatException e) {
-      message = name + "must be a valid number" + lineEnd;
+      message = name + " must be a valid number" + lineEnd;
     }
     return message;
   }

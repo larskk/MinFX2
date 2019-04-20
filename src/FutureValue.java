@@ -14,10 +14,17 @@ import java.text.NumberFormat;
 
 public class FutureValue extends Application {
 
-  private TextField investmentField;
-  private TextField interestRateField;
-  private TextField yearsField;
-  private TextField futureValueField;
+  private TextField investmentField = new TextField();
+  private Label investmentLabel = new Label("Monthly Investment");
+
+  private TextField interestRateField = new TextField();
+  private Label interestLabel = new Label("Yearly Interest Rate");
+
+  private TextField yearsField = new TextField();
+  private Label yearsLabel = new Label("Years");
+
+  private TextField futureValueField = new TextField();
+  private Label futureValueLabel = new Label("Future Value");
 
   public static void main(String[] args) {
     launch(args);
@@ -34,23 +41,21 @@ public class FutureValue extends Application {
     grid.setVgap(5);
     Scene scene = new Scene(grid, 500, 300);
 
+
     //labels & text fields
-    grid.add(new Label("Monthly Investment:"), 0, 0);
-    investmentField = new TextField();
+    grid.add(investmentLabel, 0, 0);
     grid.add(investmentField, 1, 0);
 
-    grid.add(new Label("Yearly Interest Rates:"), 0, 1);
-    interestRateField = new TextField();
+    grid.add(interestLabel, 0, 1);
     grid.add(interestRateField, 1, 1);
 
-    grid.add(new Label("Years:"), 0, 2);
-    yearsField = new TextField();
+    grid.add(yearsLabel, 0, 2);
     grid.add(yearsField, 1, 2);
 
-    grid.add(new Label("Future Value:"), 0, 3);
-    futureValueField = new TextField();
+    grid.add(futureValueLabel, 0, 3);
     futureValueField.setEditable(false);
     grid.add(futureValueField, 1, 3);
+
 
     //buttons
     Button calcButton = new Button("Calculate");
@@ -78,9 +83,9 @@ public class FutureValue extends Application {
   private void calculateButtonClicked() {
     Validation v = new Validation();
     String errorMessage = "";
-    errorMessage += v.isDouble(investmentField.getText(), "Monthly investment");
-    errorMessage += v.isDouble(interestRateField.getText(), "Yearly interest rate");
-    errorMessage += v.isInteger(yearsField.getText(), "Years");
+    errorMessage += v.isDouble(investmentField.getText(), investmentLabel.getText());
+    errorMessage += v.isDouble(interestRateField.getText(), interestLabel.getText());
+    errorMessage += v.isInteger(yearsField.getText(), yearsLabel.getText());
 
     if (errorMessage.isEmpty()) {
       double investment = Double.parseDouble(investmentField.getText());
